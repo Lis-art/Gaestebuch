@@ -53,6 +53,3 @@ app.delete("/api/entries/:id", async (req,res) => {
     res.send(deletedEntry);
 })
 
-
-app.listen(PORT, () => {console.log(`Server läuft auf Port: ${PORT}`)})
-// lausche auf Port 3001
