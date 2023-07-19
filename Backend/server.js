@@ -16,11 +16,18 @@ app.use(express.json());
 app.use(cors());
 // damit Ports miteinander kommunizieren können
 
+app.use((req,res,next) => {
+	console.log("Hi kommt was ran");
+	next();
+	// zum Test um zu schauen ob mit server kommuniziert wird
+})
+
 app.get("/api/entries", async (req, res) => {
 	const data = await entry.find();
 	//find Methode die ganze Daten (Objekte) zurückgibt - gibt leeres Array (enthält Objekte) zurück weil entry Collection (Datenbank) noch leer ist
 	res.send(data);
 });
+
 
 app.get("/api/entries/:id", async (req, res) => {
 	const id = req.params.id;
@@ -43,7 +50,7 @@ app.put("/api/entries/:id", async (req, res) => {
 	const updatedEntry = await entry.findByIdAndUpdate(id, content);
 	res.send(updatedEntry);
 });
-
+	// "/api/entries/:id:name:klasse"
 app.delete("/api/entries/:id", async (req, res) => {
 	const id = req.params.id;
 	// const {id} = req.params -> genau das gleiche wie das obere
